@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 586681153}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -464,7 +464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GroundPlanePrefab: {fileID: 54185712113594804, guid: 92c2821b9744eea44b15a38dde5b617e,
     type: 3}
-  ObstaclePrefab: {fileID: 2647351499491687249, guid: d9b81d35e8bc2ad4b9b3bf06056ae85b,
+  ObstaclePrefab: {fileID: 8221681113842584349, guid: d9b81d35e8bc2ad4b9b3bf06056ae85b,
     type: 3}
   GroundLenght: 20
 --- !u!4 &615175772
