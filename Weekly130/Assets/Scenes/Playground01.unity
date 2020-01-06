@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa82628beebf4174683c746ba7d064d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GroundPlanePrefab: {fileID: 54185712113594804, guid: 92c2821b9744eea44b15a38dde5b617e,
+  GroundPlanePrefab: {fileID: 845508816715133977, guid: 92c2821b9744eea44b15a38dde5b617e,
     type: 3}
   ObstaclePrefab: {fileID: 8221681113842584349, guid: d9b81d35e8bc2ad4b9b3bf06056ae85b,
     type: 3}
@@ -649,10 +649,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 25, y: 50, z: 25}
+  m_LocalRotation: {x: 0.58390266, y: -0, z: -0, w: 0.81182367}
+  m_LocalPosition: {x: 10.2, y: 22, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 71.451004, y: 0, z: 0}
