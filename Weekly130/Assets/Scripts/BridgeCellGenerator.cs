@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class BridgeCellGenerator : MonoBehaviour
 {
-    public GameObject MyObj;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            if(MyObj.CompareTag("NormalCell"))
+            if(this.CompareTag("NormalCell"))
             {
-                MyObj.tag = "TrackCell";
+                this.tag = "TrackCell";                                 //标记为拖尾块
+                Material[] materials = new Material[]
+                {
+                    Resources.Load("Res/Materials/TrackMapCell") as Material,
+                };
+                this.GetComponent<MeshRenderer>().materials = materials; //替换材质
             }
         }
     }
