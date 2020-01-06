@@ -14,7 +14,7 @@ public class PlayGroundGenetator : MonoBehaviour
         {
             for(var z = 0; z <GroundLenght; z++)
             {
-                Instantiate(GetPlanePrefab(), new Vector3(x, 0, z), Quaternion.identity);
+                Instantiate(GetPlanePrefab(), new Vector3(x, 1, z), Quaternion.identity);
             }
         }
         GameObject wall00 = GameObject.CreatePrimitive(PrimitiveType.Cube);
