@@ -17,6 +17,18 @@ public class PlayGroundGenetator : MonoBehaviour
                 Instantiate(GetPlanePrefab(), new Vector3(x, 0, z), Quaternion.identity);
             }
         }
+        GameObject wall00 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        GameObject wall01 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        GameObject wall02 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        GameObject wall03 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        wall00.transform.position = new Vector3(GroundLenght/2 - 0.5f, 2.5f, -1);
+        wall00.transform.localScale = new Vector3(GroundLenght, 5, 1);
+        wall01.transform.position = new Vector3(GroundLenght/2 - 0.5f, 2.5f, GroundLenght);
+        wall01.transform.localScale = new Vector3(GroundLenght, 5, 1);
+        wall02.transform.position = new Vector3(-1, 2.5f, GroundLenght/2 - 0.5f);
+        wall02.transform.localScale = new Vector3(1, 5, GroundLenght + 2);
+        wall03.transform.position = new Vector3(GroundLenght, 2.5f, GroundLenght/2 - 0.5f);
+        wall03.transform.localScale = new Vector3(1, 5, GroundLenght + 2);                          //场景四边的墙面
     }
 
     private GameObject GetPlanePrefab()
