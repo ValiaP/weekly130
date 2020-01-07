@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2538989600678918128}
   - component: {fileID: 6609983378500156985}
-  - component: {fileID: 3978840829196928981}
   - component: {fileID: 4803004108997116305}
+  - component: {fileID: 7475281223131754641}
   m_Layer: 0
   m_Name: SquareMapCell
   m_TagString: NormalCell
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 845508816715133977}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 1, z: 0.1}
   m_Children:
   - {fileID: 7196440339368766811}
   m_Father: {fileID: 0}
@@ -42,19 +42,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 845508816715133977}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &3978840829196928981
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 845508816715133977}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.8, y: 1, z: 0.8}
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &4803004108997116305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,6 +55,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Ground: {fileID: 8769081062651933562}
+--- !u!64 &7475281223131754641
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845508816715133977}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &8769081062651933562
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +97,7 @@ Transform:
   m_GameObject: {fileID: 8769081062651933562}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 1, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2538989600678918128}
   m_RootOrder: 0
