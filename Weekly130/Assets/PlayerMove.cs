@@ -21,18 +21,25 @@ public class PlayerMove : MonoBehaviour
 
     public bool CanMove = true;
 
+    [Range(0,1)]
+    public float SpeedRate = 1;
+
+    public float BurnRate = 1;
+
     void OnTriggerStay(Collider collider)
     {
         if (collider.tag == "NormalFloor" || collider.tag == "TrackCell")
         {
             MoveSpeedNormal = 10;
             MoveSpeedDead = 1;
-
+            BurnRate = 1;
         }
+
         if (collider.tag == "DeadFloor")
         {
-            MoveSpeedNormal = 1;
-            MoveSpeedDead = 15;
+            MoveSpeedNormal = 10;
+            MoveSpeedDead = 2f;
+            BurnRate = 0.5f;
 
         }
     }
@@ -45,19 +52,19 @@ public class PlayerMove : MonoBehaviour
             /* 设置移动 */
             if (Input.GetKey(KeyCode.W))
             {
-                transform.Translate(Vector3.forward * Time.deltaTime * MoveSpeedNormal * MoveSpeedDead);
+                transform.Translate(Vector3.forward * Time.deltaTime * MoveSpeedNormal * MoveSpeedDead * SpeedRate);
             }
             if (Input.GetKey(KeyCode.S))
             {
-                transform.Translate(Vector3.back * Time.deltaTime * MoveSpeedNormal * MoveSpeedDead);
+                transform.Translate(Vector3.back * Time.deltaTime * MoveSpeedNormal * MoveSpeedDead * SpeedRate);
             }
             if (Input.GetKey(KeyCode.A))
             {
-                transform.Translate(Vector3.left * Time.deltaTime * MoveSpeedNormal * MoveSpeedDead);
+                transform.Translate(Vector3.left * Time.deltaTime * MoveSpeedNormal * MoveSpeedDead * SpeedRate);
             }
             if (Input.GetKey(KeyCode.D))
             {
-                transform.Translate(Vector3.right * Time.deltaTime * MoveSpeedNormal * MoveSpeedDead);
+                transform.Translate(Vector3.right * Time.deltaTime * MoveSpeedNormal * MoveSpeedDead * SpeedRate);
             }
         }
 
@@ -72,6 +79,15 @@ public class PlayerMove : MonoBehaviour
             transform.localEulerAngles = new Vector3(0, 0, 0);
         }
 
+
+        /* 燃料用完，死亡 */
+        if (Hp < 0 && !IsDead)
+        {
+            Die();
+        }
+
+
+
         /* 移动扣除燃料 */
         if (!IsDead)
         {
@@ -79,19 +95,13 @@ public class PlayerMove : MonoBehaviour
             {
 
 
-                Hp -= 1 * MoveSpeedNormal * MoveSpeedDead;
+                Hp -= 1 * Time.deltaTime * 10 * BurnRate;
                 Debug.Log(Hp);
 
             }
 
         }
        
-
-        /* 燃料用完，死亡 */
-        if (Hp < 0 && !IsDead)
-        {
-            Die();
-        }
 
         /*  UI显示 HP  */
         HpTitle.GetComponent<Text>().text = $"{Hp}";
