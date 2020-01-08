@@ -13,6 +13,12 @@ public class PlayerMove : MonoBehaviour
     public float HpMax=50000;
     public GameObject HpTitle;
 
+
+    public GameObject DieEffect;
+    public GameObject BirthEffect;
+
+    public bool CanMove = true;
+
     void OnTriggerStay(Collider collider)
     {
         if (collider.tag == "NormalFloor" || collider.tag == "TrackCell")
@@ -24,30 +30,36 @@ public class PlayerMove : MonoBehaviour
         if (collider.tag == "DeadFloor")
         {
             MoveSpeedNormal = 1;
-            MoveSpeedDead = 20;
+            MoveSpeedDead = 15;
 
         }
     }
 
     void Update()
     {
-        /* 设置移动 */
-        if (Input.GetKey(KeyCode.W))
+
+        if (CanMove)
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * MoveSpeedNormal* MoveSpeedDead);
+            /* 设置移动 */
+            if (Input.GetKey(KeyCode.W))
+            {
+                transform.Translate(Vector3.forward * Time.deltaTime * MoveSpeedNormal * MoveSpeedDead);
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                transform.Translate(Vector3.back * Time.deltaTime * MoveSpeedNormal * MoveSpeedDead);
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.Translate(Vector3.left * Time.deltaTime * MoveSpeedNormal * MoveSpeedDead);
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.Translate(Vector3.right * Time.deltaTime * MoveSpeedNormal * MoveSpeedDead);
+            }
         }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(Vector3.back * Time.deltaTime * MoveSpeedNormal * MoveSpeedDead);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(Vector3.left * Time.deltaTime * MoveSpeedNormal * MoveSpeedDead);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(Vector3.right * Time.deltaTime * MoveSpeedNormal * MoveSpeedDead);
-        }
+
+       
 
         /* 保持朝向，临时 */
         transform.LookAt(North);
@@ -59,18 +71,22 @@ public class PlayerMove : MonoBehaviour
         }
 
         /* 移动扣除燃料 */
-
-        if(Input.GetKey(KeyCode.W)|| Input.GetKey(KeyCode.S)|| Input.GetKey(KeyCode.A)|| Input.GetKey(KeyCode.D))
+        if (!IsDead)
         {
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            {
 
-         
+
                 Hp -= 1 * MoveSpeedNormal * MoveSpeedDead;
                 Debug.Log(Hp);
-          
+
+            }
+
         }
+       
 
         /* 燃料用完，死亡 */
-        if (Hp < 0)
+        if (Hp < 0 && !IsDead)
         {
             Die();
         }
@@ -79,8 +95,13 @@ public class PlayerMove : MonoBehaviour
         HpTitle.GetComponent<Text>().text = $"{Hp}";
     }
 
+
+    bool IsDead = false;
+
+
     public void Die()
     {
+        IsDead = true;
         //转换tag
         var cells = GameObject.FindGameObjectsWithTag("TrackCell");
 
@@ -89,14 +110,24 @@ public class PlayerMove : MonoBehaviour
             cell.GetComponent<BridgeCellGenerator>().Die();
         }
 
-        Rebirth();
+        CanMove = false;
+        Instantiate(DieEffect, transform.position,Quaternion.identity);
+        Invoke("Rebirth", 3);
     }
 
     void Rebirth()
     {
         //
-        transform.position = new Vector3(0, 1.6f, 0);
+        IsDead = false;
+
+        var pos = new Vector3(0, 1.6f, 0);
+        Instantiate(BirthEffect , pos, Quaternion.identity);
+
+        transform.position = pos;
         Hp = HpMax;
+
+        CanMove = true;
+
     }
     private void Start()
     {
