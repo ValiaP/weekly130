@@ -34,16 +34,20 @@ public class Ending : MonoBehaviour
             {
                 case type.ending:
                     GameEnd.End(true);
+                    other.gameObject.GetComponent<PlayerMove>().WinSound();
                     break;
                 case type.hp:
                     other.gameObject.GetComponent<PlayerMove>().Hp += AddAmount;
+                    other.gameObject.GetComponent<PlayerMove>().PiaoZi(AddAmount);
                     Destroy(gameObject);
                     break;
                 case type.mainhp:
                     other.gameObject.GetComponent<PlayerMove>().MainHp += AddAmount;
+                    other.gameObject.GetComponent<PlayerMove>().PiaoZi(AddAmount);
                     Destroy(gameObject);
                     break;
             }
+            other.gameObject.GetComponent<PlayerMove>().EatSound();
             Eaten = true;
         }
        

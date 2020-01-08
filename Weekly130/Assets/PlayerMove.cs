@@ -2,20 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerMove : MonoBehaviour
 {
+
+    public AudioSource Source;
+
     public GameEnd GameEnd;
     public float MoveSpeedNormal=10;
     public float MoveSpeedDead=1;
     Vector3 PlayerVector;
     public Transform North;
+    public Transform Model;
     public float Hp=2000;
     public float HpMax=2000;
-    public GameObject HpTitle;
-    public GameObject HpTitle2;
+    public TextMeshProUGUI HpTitle;
+    public TextMeshProUGUI HpTitle2;
+    public TextMeshProUGUI Piaozi;
     public float MainHp=10000;
+    public float MainHpMax=10000;
 
+    public AudioClip Eat;
+    public AudioClip die;
+    public AudioClip Win;
 
     public GameObject DieEffect;
     public GameObject BirthEffect;
@@ -26,6 +36,10 @@ public class PlayerMove : MonoBehaviour
     public float SpeedRate = 1;
 
     public float BurnRate = 1;
+    [Range(0,1)]
+    public float BurnRateActual = 0;
+    [Range(0, 10)]
+    public float BurnRateBase= 0;
 
     void OnTriggerStay(Collider collider)
     {
@@ -40,14 +54,22 @@ public class PlayerMove : MonoBehaviour
         {
             MoveSpeedNormal = 10;
             MoveSpeedDead = 2f;
-            BurnRate = 0.5f;
+            BurnRate = BurnRateActual;
 
         }
     }
 
     void Update()
     {
-
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    AudioSource.PlayClipAtPoint(Eat, Camera.main.transform.position);
+            
+        //}
+        //if (Input.GetKeyDown(KeyCode.B))
+        //{
+        //    Source.PlayOneShot(Eat);
+        //}
         if (CanMove)
         {
             /* 设置移动 */
@@ -96,7 +118,7 @@ public class PlayerMove : MonoBehaviour
             {
 
 
-                Hp -= 1 * Time.deltaTime * 10 * BurnRate;
+                Hp -= 1 * Time.deltaTime * BurnRateBase * BurnRate;
                 Debug.Log(Hp);
 
             }
@@ -105,13 +127,15 @@ public class PlayerMove : MonoBehaviour
        
 
         /*  UI显示 HP  */
-        HpTitle.GetComponent<Text>().text = $"{Hp}";
-        HpTitle2.GetComponent<Text>().text = $"{MainHp}";
+        HpTitle.text = $"Energy: {(int)(Hp/HpMax *100)}%";
+        HpTitle2.text = $"All Cells Energy: {(int)(MainHp / MainHpMax * 100) }%";
 
 
-        if (Hp <= 0 && HpMax <= 0)
+        if (Hp <= 0 && MainHp <= 0)
         {
             GameEnd.End(false);
+            AudioSource.PlayClipAtPoint(die, Camera.main.transform.position);
+
         }
     }
 
@@ -133,7 +157,7 @@ public class PlayerMove : MonoBehaviour
         CanMove = false;
         Instantiate(DieEffect, transform.position,Quaternion.identity);
 
-        transform.localScale = Vector3.zero;
+        Model.localScale = Vector3.zero;
 
         Invoke("Rebirth", 3);
     }
@@ -142,7 +166,7 @@ public class PlayerMove : MonoBehaviour
     {
         //
         IsDead = false;
-        transform.localScale = Vector3.one;
+        Model.localScale = Vector3.one;
 
         var pos = new Vector3(0, 1.6f, 0);
         Instantiate(BirthEffect , pos, Quaternion.identity);
@@ -155,6 +179,32 @@ public class PlayerMove : MonoBehaviour
     private void Start()
     {
         Hp = HpMax;
+        MainHp = MainHpMax;
+
     }
+
+    public void PiaoZi(float amount)
+    {
+        Piaozi.gameObject.SetActive(true);
+        Piaozi.text = $"+{(int)(amount / HpMax * 100)}%";
+
+        Invoke("PiaoZiEnd", 0.45f);
+    }
+    void PiaoZiEnd()
+    {
+        Piaozi.gameObject.SetActive(false);
+        
+    }
+    public void EatSound()
+    {
+        AudioSource.PlayClipAtPoint(Eat, Camera.main.transform.position);
+
+    }
+    public void WinSound()
+    {
+        AudioSource.PlayClipAtPoint(Win, Camera.main.transform.position);
+
+    }
+
 }
 
