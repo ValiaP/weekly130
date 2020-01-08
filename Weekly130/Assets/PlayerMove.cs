@@ -132,6 +132,9 @@ public class PlayerMove : MonoBehaviour
 
         CanMove = false;
         Instantiate(DieEffect, transform.position,Quaternion.identity);
+
+        transform.localScale = Vector3.zero;
+
         Invoke("Rebirth", 3);
     }
 
@@ -139,6 +142,7 @@ public class PlayerMove : MonoBehaviour
     {
         //
         IsDead = false;
+        transform.localScale = Vector3.one;
 
         var pos = new Vector3(0, 1.6f, 0);
         Instantiate(BirthEffect , pos, Quaternion.identity);
