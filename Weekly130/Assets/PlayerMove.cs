@@ -95,8 +95,8 @@ public class PlayerMove : MonoBehaviour
 
         /*  UI显示 HP  */
         HpTitle.GetComponent<Text>().text = $"{Hp}";
-        //HpTitle2.GetComponent<Text>().text = $"{MainHp}";
-        
+        HpTitle2.GetComponent<Text>().text = $"{MainHp}";
+
     }
 
 
