@@ -9,9 +9,11 @@ public class PlayerMove : MonoBehaviour
     public float MoveSpeedDead=1;
     Vector3 PlayerVector;
     public Transform North;
-    public float Hp=50000;
-    public float HpMax=50000;
+    public float Hp=2000;
+    public float HpMax=2000;
     public GameObject HpTitle;
+    public GameObject HpTitle2;
+    public float MainHp=10000;
 
 
     public GameObject DieEffect;
@@ -93,6 +95,8 @@ public class PlayerMove : MonoBehaviour
 
         /*  UI显示 HP  */
         HpTitle.GetComponent<Text>().text = $"{Hp}";
+        //HpTitle2.GetComponent<Text>().text = $"{MainHp}";
+        
     }
 
 
@@ -125,9 +129,8 @@ public class PlayerMove : MonoBehaviour
 
         transform.position = pos;
         Hp = HpMax;
-
+        MainHp -= HpMax;
         CanMove = true;
-
     }
     private void Start()
     {
