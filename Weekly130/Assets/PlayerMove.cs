@@ -9,12 +9,13 @@ public class PlayerMove : MonoBehaviour
     public float MoveSpeedDead=1;
     Vector3 PlayerVector;
     public Transform North;
-    static public float Hp=50000;
+    public float Hp=50000;
+    public float HpMax=50000;
     public GameObject HpTitle;
 
     void OnTriggerStay(Collider collider)
     {
-        if (collider.tag == "NormalFloor")
+        if (collider.tag == "NormalFloor" || collider.tag == "TrackCell")
         {
             MoveSpeedNormal = 10;
             MoveSpeedDead = 1;
@@ -71,15 +72,35 @@ public class PlayerMove : MonoBehaviour
         /* 燃料用完，死亡 */
         if (Hp < 0)
         {
-            transform.position = new Vector3(0, 4, 0);
-            Hp = 50000;
+            Die();
         }
 
         /*  UI显示 HP  */
         HpTitle.GetComponent<Text>().text = $"{Hp}";
     }
 
+    public void Die()
+    {
+        //转换tag
+        var cells = GameObject.FindGameObjectsWithTag("TrackCell");
 
+        foreach(var cell in cells)
+        {
+            cell.GetComponent<BridgeCellGenerator>().Die();
+        }
 
+        Rebirth();
+    }
+
+    void Rebirth()
+    {
+        //
+        transform.position = new Vector3(0, 1.6f, 0);
+        Hp = HpMax;
+    }
+    private void Start()
+    {
+        Hp = HpMax;
+    }
 }
 

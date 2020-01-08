@@ -13,12 +13,23 @@ public class BridgeCellGenerator : MonoBehaviour
         {
             if(this.gameObject.tag == "NormalCell")
             {
-                this.tag = "TrackCell";                                 //标记为拖尾块
-                Debug.Log("更改区块为拖尾块");
-                Material mat = AssetDatabase.LoadAssetAtPath<Material>("Assets/Res/Materials/TrackMapCell.mat");
-                Ground.GetComponent<MeshRenderer>().sharedMaterial = mat;
+                Tracked();
             }
         }
     }
 
+    public void Tracked()
+    {
+        this.tag = "TrackCell";                                 
+        Debug.Log("更改区块为拖尾块");
+        Material mat = Resources.Load<Material>("Materials/TrackMapCell");
+        Ground.GetComponent<MeshRenderer>().sharedMaterial = mat;
+    }
+    public void Die()
+    {
+        gameObject.tag = "DeadFloor";
+
+        Material mat = Resources.Load<Material>("Materials/DeadFloor");
+        Ground.GetComponent<MeshRenderer>().sharedMaterial = mat;
+    }
 }
