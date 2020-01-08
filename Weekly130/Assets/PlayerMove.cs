@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
+    public GameEnd GameEnd;
     public float MoveSpeedNormal=10;
     public float MoveSpeedDead=1;
     Vector3 PlayerVector;
@@ -107,6 +108,11 @@ public class PlayerMove : MonoBehaviour
         HpTitle.GetComponent<Text>().text = $"{Hp}";
         HpTitle2.GetComponent<Text>().text = $"{MainHp}";
 
+
+        if (Hp <= 0 && HpMax <= 0)
+        {
+            GameEnd.End(false);
+        }
     }
 
 

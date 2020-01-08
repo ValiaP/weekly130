@@ -27,6 +27,8 @@ public class GameEnd : MonoBehaviour
             Lose.SetActive(true);
 
         }
+        Time.timeScale = 0f;
+
     }
 
     // Start is called before the first frame update
@@ -34,6 +36,7 @@ public class GameEnd : MonoBehaviour
     {
         Restart.onClick.AddListener(()=> {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Time.timeScale = 1f;
         });
     }
 
